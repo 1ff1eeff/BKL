@@ -1,8 +1,9 @@
-;#RequireAdmin
+#RequireAdmin  ;для функции BlockInput()
+#include <WinAPISys.au3>	;для функции _WinAPI_SetKeyboardLayout()
 
 ;Для определения имени полей и кнопок используем "Autoit Window Info x86"
 ;распологается по адресу C:\Program Files (x86)\AutoIt3\Au3Info.exe
-$exeName	= "keygen.exe"
+$exeName	= "keygen.exe"		;путь к исполняемому файлу приложения создающего ключи
 $mainFrame  = "Генератор ключа" ;класс или заголовок окна приложения создающего ключи
 $textBox1 	= "[NAME:textBox1]" ;имена текстовых полей ввода
 $textBox2 	= "[NAME:textBox2]" ;имена текстовых полей ввода
@@ -12,10 +13,15 @@ $someNumber = "301800" 			;какое-то число
 $orgName 	= "Pochtamt" 		;название организации
 $keyFile	= "keyfile"			;имя файла с ключом
 $archName	= "archKey.exe"		;имя для будущего sfx-архива
-$programDir	= "new" ;каталог назначения для архива с ключом
+$programDir	= "Lectus\key" 		;каталог назначения для архива с ключом
 
-;Скрипт принимает параметры командной строки в формате " -аргумент "значение аргумента" "
-;Например строка запуска для значений по умолчанию во время написания скрипта
+$neroExe	= "C:\Program Files (x86)\Nero\Nero 2017\Nero Burning ROM\nero.exe"  	;путь к исполняемому файлу Nero Burning ROM
+$neroWnd	= "Nero Burning ROM"													;класс или заголовок окна Nero Burning ROM
+$lectusDir = "C:\Users\1ff1e\Desktop\autoit\Lectus"									;папка которую необходимо записать
+
+$iLanguage = '0x0409'			;U.S. раскладка клавиатуры
+;Скрипт принимает параметры командной строки в формате: "-аргумент значение"
+;Например строка запуска для всех значений по умолчанию
 ;Script.exe -exeName keygen.exe -mainFrame "Генератор ключа" -textBox1 [NAME:textBox1] -textBox2 [NAME:textBox2]
 ;			-genBtnText "Создать ключ" -genBtnName [NAME:button1] -someNumber 301832 -orgName Pochtamt -keyFile keyfile
 ;			-archName archKey.exe -programDir C:\Users\1ff1e\Desktop\autoit\new
@@ -58,6 +64,8 @@ Run($exeName)
 		 MsgBox(0, 'Внимание!', "Кейген не найден!")
 	  Exit
    EndIf
+   Sleep(1000)
+   _WinAPI_SetKeyboardLayout( $hWnd, $iLanguage)
    ;Вводим данные в текстовые поля
    ControlSend($hWnd, "", $textBox1, $someNumber)
    ControlSend($hWnd, "", $textBox2, $orgName)
@@ -79,6 +87,42 @@ Run($exeName)
 	  FileDelete ($keyFile)						;также удаляем файл ключа из рабочей папки
    EndIf
 
+
+Run($neroExe)
+   ;Отключаем ввод с клавиатуры и мыши
+   BlockInput(1)
+   ;Запускаем Nero Burning ROM
+   $hWnd = WinWait($neroWnd, "", 1)
+   If Not $hWnd Then
+	  BlockInput(0)
+		 MsgBox(0, 'Внимание!', "Nero не найден!")
+	  Exit
+   EndIf
+   Sleep(2000)
+   ControlClick($hWnd, "Новый проект", "Button52")
+   Sleep(2000)
+   ControlClick("Новый проект", "Новый", "[ID:6184]")
+   Sleep(1000)
+   Send("^d")
+   Sleep(1000)
+   Send($lectusDir)
+   Sleep(1000)
+   Send("{ENTER}")
+   Sleep(1000)
+   ControlClick("Добавить файлы и папки", "", "[CLASS:DirectUIHWND; INSTANCE:2]")
+   Send("^a")
+   ControlClick("Добавить файлы и папки", "Добавить", "[CLASS:Button; INSTANCE:1]")
+   ;Sleep(1000)
+   ;Send("^b")
+   ;Sleep(1000)
+   ;ControlClick("Записать проект", "Прожиг", "[CLASS:Button; INSTANCE:52]")
+   ;Sleep(1000)
+   ;Закрытие
+   ;WinClose($hWnd)
+   ;Sleep(1000)
+   ;ControlClick("Сохранить проект", "Нет", "[CLASS:Button; INSTANCE:3]")
+
    ;Возвращаем ввод с клавиатуры и мыши(необязательно)
-   ;BlockInput(0)
+   BlockInput(0)
+
 Exit

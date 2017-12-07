@@ -2,7 +2,7 @@
 
 ;Для определения имени полей и кнопок используем "Autoit Window Info x86"
 ;распологается по адресу C:\Program Files (x86)\AutoIt3\Au3Info.exe
-$exeName	= "C:\Users\1ff1e\Desktop\autoit\keygen.exe"
+$exeName	= "keygen.exe"
 $mainFrame  = "Генератор ключа" ;класс или заголовок окна приложения создающего ключи
 $textBox1 	= "[NAME:textBox1]" ;имена текстовых полей ввода
 $textBox2 	= "[NAME:textBox2]" ;имена текстовых полей ввода
@@ -12,7 +12,7 @@ $someNumber = "301800" 			;какое-то число
 $orgName 	= "Pochtamt" 		;название организации
 $keyFile	= "keyfile"			;имя файла с ключом
 $archName	= "archKey.exe"		;имя для будущего sfx-архива
-$programDir	= "C:\Users\1ff1e\Desktop\autoit\new" ;каталог назначения для архива с ключом
+$programDir	= "new" ;каталог назначения для архива с ключом
 
 ;Скрипт принимает параметры командной строки в формате " -аргумент "значение аргумента" "
 ;Например строка запуска для значений по умолчанию во время написания скрипта

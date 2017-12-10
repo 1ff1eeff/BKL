@@ -122,11 +122,8 @@ Run($neroExe)
    Send("{APPSKEY}")
    Send("{UP 4}")
    Send("{ENTER}")
-   ;Sleep(1000)
    Send($lectusDir)
-   ;Sleep(1000)
    Send("{ENTER}")
-   ;Sleep(1000)
 
    ; Ожидаем окно "Добавить файлы и папки"
    $hWnd = WinWaitActive("Добавить файлы и папки", "", 5)
@@ -137,7 +134,11 @@ Run($neroExe)
    EndIf
    ControlClick("Добавить файлы и папки", "", "[CLASS:DirectUIHWND; INSTANCE:2]")
    Sleep(1000)
-   Send("^a")
+   Send("{CTRLDOWN}")
+   Sleep(100)
+   Send("{a}")
+   Sleep(1000)
+   Send("{CTRLUP}")
    ; Ожидаем окно "Добавить файлы и папки"
    $hWnd = WinWaitActive("Добавить файлы и папки", "", 5)
    If Not $hWnd Then
@@ -147,7 +148,11 @@ Run($neroExe)
    EndIf
    ControlClick("Добавить файлы и папки", "Добавить", "[CLASS:Button; INSTANCE:1]")
    Sleep(1000)
-   Send("^b")
+   Send("{CTRLDOWN}")
+   Sleep(100)
+   Send("{b}")
+   Sleep(100)
+   Send("{CTRLUP}")
    ;Sleep(3000)
 
    ; Ожидаем окно "Записать проект"

@@ -67,7 +67,7 @@ Run($exeName)
    ControlSend($hWnd, "", $textBox2, $orgName)
    ControlSend($hWnd, "", $textBox1, $someNumber)
    BlockInput(0)
-   Sleep(10000)
+   Sleep(10000)  ;нфхдюмхе мю ббнд хлемх онкэгнбюрекэъ  <============================
    BlockInput(1)
 
 

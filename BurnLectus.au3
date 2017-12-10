@@ -1,5 +1,5 @@
 #RequireAdmin  ;для функции BlockInput()
-#include <WinAPISys.au3>	;для функции _WinAPI_SetKeyboardLayout()
+;#include <WinAPISys.au3>	;для функции _WinAPI_SetKeyboardLayout()
 
 ;Для определения имени полей и кнопок используем "Autoit Window Info x86"
 ;распологается по адресу C:\Program Files (x86)\AutoIt3\Au3Info.exe
@@ -18,7 +18,7 @@ $programDir	= "Lectus\key" 		;каталог назначения для архива с ключом
 $neroExe	= "C:\Program Files (x86)\Nero\Nero 2017\Nero Burning ROM\nero.exe"  	;путь к исполняемому файлу Nero Burning ROM
 $neroWnd	= "Nero Burning ROM"													;класс или заголовок окна Nero Burning ROM
 $lectusDir = "C:\Users\1ff1e\Desktop\autoit\Lectus"									;папка которую необходимо записать
-$iLanguage = '0x0409'			;U.S. раскладка клавиатуры
+;$iLanguage = '0x0409'			;U.S. раскладка клавиатуры
 
 ;Скрипт принимает параметры командной строки в формате: "-аргумент значение"
 ;Например строка запуска для всех значений по умолчанию

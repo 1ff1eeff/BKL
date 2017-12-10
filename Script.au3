@@ -12,7 +12,8 @@ $genBtnText 	= "Создать"			;надпись на кнопке генерации ключа
 $genBtnName 	= "TButton1"		;имя кнопки генерации ключа
 $someNumber 	= "301800" 			;имя пользователя!
 $orgName 		= "Owen" 		    ;название организации
-$keyFile		= "C:\Lectus\Source_key_opcserv_02\opcserv.key"	;имя файла с ключом
+$keyFile		= "C:\Lectus\opcserv.key"	;имя файла с ключом
+$sourceFile		= "C:\Lectus\Source_key_opcserv_02\opcserv.key"	;имя файла с ключом
 $archName		= "C:\Lectus\Disk_Lectus_05\opckey.exe"				;имя для будущего sfx-архива
 $programDir		= "C:\Lectus\Disk_Lectus_05" 							;каталог назначения для архива с ключом
 
@@ -62,7 +63,7 @@ Run($exeName)
    EndIf
    ;_WinAPI_SetKeyboardLayout( $hWnd, $iLanguage)
    ;Вводим данные в текстовые поля
-   ControlSend($hWnd, "", "TEdit4", $keyFile)
+   ControlSend($hWnd, "", "TEdit4", $sourceFile)
    ControlSend($hWnd, "", $textBox2, $orgName)
    ControlSend($hWnd, "", $textBox1, $someNumber)
    BlockInput(0)
@@ -71,7 +72,8 @@ Run($exeName)
 
 
    ;Жмем генерацию
-   ControlClick($hWnd, $genBtnText, $genBtnName)
+   ControlClick($hWnd, "Создать", "TButton1")
+
    ;Закрытие
    WinClose($hWnd)
 

@@ -1,3 +1,0 @@
-;#include <WinAPISys.au3>	;для функции _WinAPI_SetKeyboardLayout()
-;$iLanguage = '0x0409'			;U.S. раскладка клавиатуры
-;_WinAPI_SetKeyboardLayout( $hWnd, $iLanguage)

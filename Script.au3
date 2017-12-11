@@ -2,24 +2,26 @@
 ;#include <WinAPISys.au3>			;для функции _WinAPI_SetKeyboardLayout()
 ;$iLanguage 		= '0x0409'			;U.S. раскладка клавиатуры
 
+$winRarSfx = 'C:\Users\Андрей\Desktop\autoit\WinRAR\WinRAR.exe "-cpSFXLectus"'  ; WinRar portable в папке скрипта
+
 ;Для определения имени полей и кнопок используем "Autoit Window Info x86"
 ;распологается по адресу C:\Program Files (x86)\AutoIt3\Au3Info.exe
-$exeName		= "C:\Lectus\subkey.exe"		;путь к исполняемому файлу приложения создающего ключи
-$mainFrame  	= "Генератор сублицензий" ;заголовок окна приложения создающего ключи
+$exeName		= "C:\Lectus\subkey.exe";путь к исполняемому файлу приложения создающего ключи
+$mainFrame  	= "Генератор сублицензий";заголовок окна приложения создающего ключи
 $textBox1 		= "TEdit2"			;пользователь
 $textBox2 		= "TEdit3" 			;организация
 $genBtnText 	= "Создать"			;надпись на кнопке генерации ключа
 $genBtnName 	= "TButton1"		;имя кнопки генерации ключа
 $someNumber 	= "301800" 			;имя пользователя!
 $orgName 		= "Owen" 		    ;название организации
-$keyFile		= "C:\Lectus\opcserv.key"	;имя файла с ключом
-$sourceFile		= "C:\Lectus\Source_key_opcserv_02\opcserv.key"	;имя файла с ключом
-$archName		= "C:\Lectus\Disk_Lectus_05\opckey.exe"				;имя для будущего sfx-архива
-$programDir		= "C:\Lectus\Disk_Lectus_05" 							;каталог назначения для архива с ключом
+$keyFile		= "C:\Lectus\opcserv.key";имя файла с ключом
+$sourceFile		= "C:\Lectus\Source_key_opcserv_02\opcserv.key";имя файла с ключом
+$archName		= "C:\Lectus\Disk_Lectus_05\opckey.exe";имя для будущего sfx-архива
+$programDir		= "C:\Lectus\Disk_Lectus_05";каталог назначения для архива с ключом
 
-$neroExe		= "C:\Program Files (x86)\Nero\Nero 2017\Nero Burning ROM\nero.exe"  	;путь к исполняемому файлу
-$neroWnd		= "Nero Burning ROM"													;класс или заголовок окна
-$lectusDir 		= "C:\Users\Андрей\Desktop\Диск_Lectus_05"								;папка которую будем писать на оптический диск
+$lectusDir 		= "C:\Lectus\Disk_Lectus_05";папка которую будем писать на оптический диск
+$neroExe		= "C:\Program Files (x86)\Nero\Nero 2017\Nero Burning ROM\nero.exe"	;путь к исполняемому файлу
+$neroWnd		= "Nero Burning ROM";класс или заголовок окна
 $neroNPWnd 		= "Новый проект"	;заголовок окна создания нового проекта
 $neroNPBtn 		= "Button52"		;имя класса кнопки создания нового проекта
 $neroNPBtnText 	= "Новый"			;текст кнопки создания нового проекта
@@ -79,7 +81,16 @@ Run($exeName)
 
    ;Создаём sfx-архив
    ;Требуются файлы 7z.sfx и 7za.exe в папке скрипта
-   RunWait(@ComSpec & " /c " & "7za.exe a -sfx7z.sfx " & $archName & ' "' & $keyFile & '"')
+   ;RunWait(@ComSpec & " /c " & "7za.exe a -sfx7z.sfx " & $archName & ' "' & $keyFile & '"')
+   Run($winRarSfx)
+   $hWnd = WinWaitActive("Имя и параметры архива", "", 5)
+   If Not $hWnd Then
+	  BlockInput(0)
+	  MsgBox(4096, 'Внимание!', "WinRar не найден!")
+	  Exit
+   EndIf
+   ControlClick($hWnd, "", "Button15")
+
    BlockInput(0)
 Run($neroExe)
 
@@ -127,7 +138,6 @@ Run($neroExe)
 	  Exit
    EndIf
    ControlClick($neroAddWnd, "", $neroAddClass)
-
 
    Sleep(1000)
    Send("{CTRLDOWN}")
